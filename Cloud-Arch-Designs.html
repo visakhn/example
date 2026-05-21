@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GFSL Cloud Architecture Decision Engine</title>
+    <!-- Load Mermaid.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #0056b3;
+        }
+        /* Controls Section Styling */
+        .controls-panel {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-end;
+        }
+        .control-group {
+            flex: 1 1 200px;
+            display: flex;
+            flex-direction: column;
+        }
+        .control-group label {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #495057;
+        }
+        .control-group select, .control-group input[type="range"] {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 14px;
+        }
+        .slider-value {
+            font-size: 11px;
+            color: #6c757d;
+            margin-top: 4px;
+            font-weight: bold;
+        }
+        /* Main Layout */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .chart-section {
+            flex: 1 1 55%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            min-height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .glossary-section {
+            flex: 1 1 35%;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        .glossary-item {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .glossary-item h3 {
+            color: #0056b3;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .glossary-item p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .reference-link {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: bold;
+            color: #d9534f;
+            text-decoration: none;
+        }
+        .reference-link:hover {
+            text-decoration: underline;
+        }
+        #mermaid-container {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>GFSL Cloud Architecture Decision Engine</h1>
+        <p>Dynamic Workload Profiling & Partitioning Assistant for Geojit 2.0</p>
+    </div>
+
+    <!-- Top Column: Selection Controls -->
+    <div class="controls-panel">
+        <div class="control-group">
+            <label for="regulatory">Regulatory Strictness</label>
+            <select id="regulatory" onchange="updateArchitecture()">
+                <option value="standard">Standard Business App</option>
+                <option value="sebi" selected>SEBI Compliant (Financial/Trading)</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label for="latency">Latency Requirements</label>
+            <select id="latency" onchange="updateArchitecture()">
+                <option value="standard">Standard Web (>100ms)</option>
+                <option value="low">Low Latency (10ms - 50ms)</option>
+                <option value="micro">Microsecond / Algorithmic Trading</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="egress">Data Gravity / Egress Volume</label>
+            <input type="range" id="egress" min="1" max="3" value="1" oninput="updateEgressLabel(); updateArchitecture();">
+            <div id="egress-label" class="slider-value">Low (Light transactional logs)</div>
+        </div>
+
+        <div class="control-group">
+            <label for="appType">Application Code Architecture</label>
+            <select id="appType" onchange="updateArchitecture()">
+                <option value="native">Cloud-Native (Microservices/Containers)</option>
+                <option value="monolith">Legacy Monolith / Proprietary Stack</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Bottom Row: Flowchart and Sidebar Documentation -->
+    <div class="container">
+        <!-- Left Side: Interactive Dynamic Diagram Container -->
+        <div class="chart-section">
+            <div id="mermaid-container"></div>
+        </div>
+
+        <!-- Right Side: Explanations Panel -->
+        <div class="glossary-section">
+            <h2>Strategic Considerations</h2>
+            
+            <div class="glossary-item">
+                <h3>SEBI Cloud Adoption & Localization</h3>
+                <p><strong>The Consideration:</strong> Financial data must reside within Indian jurisdictions. If expanding to the DIFC (Middle East), local GCC data sovereignty laws apply. The architecture must guarantee isolation of client data in multi-tenant cloud environments.</p>
+                <a class="reference-link" href="https://www.sebi.gov.in/legal/circulars/mar-2023/framework-for-adoption-of-cloud-services-by-sebi-regulated-entities-res-_68740.html" target="_blank">📄 Read SEBI March 2023 Cloud Circular</a>
+            </div>
+
+            <div class="glossary-item">
+                <h3>Cybersecurity & Cyber Resilience (CSCRF)</h3>
+                <p><strong>The Consideration:</strong> Following the CISO vacuum, GFSL must adhere to SEBI's updated August 2024 CSCRF guidelines. Any cloud deployment must natively support Vulnerability Assessment and Penetration Testing (VAPT), strict asset management, and automated incident response.</p>
+                <a class="reference-link" href="https://www.sebi.gov.in/legal/circulars/aug-2024/cybersecurity-and-cyber-resilience-framework-cscrf-for-sebi-regulated-entities-res-_85964.html" target="_blank">📄 Read SEBI August 2024 CSCRF Circular</a>
+            </div>
+
+            <div class="glossary-item">
+                <h3>Data Gravity & Egress Costs</h3>
+                <p><strong>The Consideration:</strong> "Data Gravity" dictates that applications should be deployed as close to their databases as possible. Cloud providers charge heavily for "egress"—moving data <i>out</i> of the cloud. If SPARC (Back Office) processes massive ledger files that must be continuously pulled down to 500+ physical branches, placing the database in the cloud will cause cost overruns.</p>
+            </div>
+
+            <div class="glossary-item">
+                <h3>Microsecond Latency Limits</h3>
+                <p><strong>The Consideration:</strong> High-frequency trading systems (like FLIP) cannot tolerate the network latency introduced by routing traffic to a public cloud data center and back. For these specific workloads, the speed of light dictates they must remain on-premises or at an edge colocation facility next to the exchange.</p>
+            </div>
+
+            <div class="glossary-item">
+                <h3>The a16z Repatriation Math (TCO vs. COR)</h3>
+                <p><strong>The Consideration:</strong> Not all workloads are cheaper in the cloud. If steady-state, predictable workloads push the cloud bill to more than 50% of the Cost of Revenue (COR), the leadership should consider a hybrid model to preserve gross margins, treating infrastructure as a measurable business KPI.</p>
+                <a class="reference-link" href="https://a16z.com/the-cost-of-cloud-a-trillion-dollar-paradox/" target="_blank">📄 Read a16z Cloud Cost Analysis</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Engine Control Logic Script -->
+    <script>
+        // Initialize Mermaid Engine Configuration
+        mermaid.initialize({ 
+            startOnLoad: false, 
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: { curve: 'basis' }
+        });
+
+        // Dynamic Slider Labels Mapping
+        function updateEgressLabel() {
+            const val = document.getElementById('egress').value;
+            const label = document.getElementById('egress-label');
+            if (val == 1) label.innerText = "Low (Light transactional logs)";
+            if (val == 2) label.innerText = "Medium (Moderate daily sync batches)";
+            if (val == 3) label.innerText = "High / Petabyte Scale (Massive back-office batching)";
+        }
+
+        // The Rule Evaluation & Tree Rendering Function
+        async function updateArchitecture() {
+            // Read UI States
+            const isSebi = document.getElementById('regulatory').value === 'sebi';
+            const latency = document.getElementById('latency').value;
+            const egress = parseInt(document.getElementById('egress').value);
+            const isLegacy = document.getElementById('appType').value === 'monolith';
+
+            // Base graph template definition
+            let graphDefinition = `
+            graph TD
+                A[Start: Profile Workload] --> B{Is it regulated by SEBI?}
+                B -- Yes --> C[Apply SEBI CSCRF / Cloud Guidelines]
+                B -- No --> D{Assess Data Gravity & Egress}
+                
+                C --> E{Latency Limits?}
+                E -- Microsecond/Trading --> F[Deploy On-Premises / Exchange Edge]
+                E -- Standard/Low --> D
+                
+                D -- High Data Volume --> G[Deploy On-Premises / Private Cloud]
+                D -- Low/Medium Volume --> H{Code Architecture Pattern}
+                
+                H -- Monolithic/Proprietary --> I[Repatriate to Bare-Metal / Colocation]
+                H -- Cloud-Native Containers --> J[Deploy to Public Cloud India Region]
+            `;
+
+            // Evaluate inputs to determine the targeted highlight active node path
+            let activeNodes = ['A', 'B'];
+
+            if (isSebi) {
+                activeNodes.push('C', 'E');
+                if (latency === 'micro') {
+                    activeNodes.push('F');
+                } else {
+                    activeNodes.push('D');
+                    if (egress === 3) {
+                        activeNodes.push('G');
+                    } else {
+                        activeNodes.push('H');
+                        if (isLegacy) activeNodes.push('I');
+                        else activeNodes.push('J');
+                    }
+                }
+            } else {
+                activeNodes.push('D');
+                if (egress === 3) {
+                    activeNodes.push('G');
+                } else {
+                    activeNodes.push('H');
+                    if (isLegacy) activeNodes.push('I');
+                    else activeNodes.push('J');
+                }
+            }
+
+            // Append CSS styling directives dynamically to color the selected path
+            let styleStrings = "\n\tclassDef inactive opacity:0.4,stroke-dasharray: 3 3;\n";
+            styleStrings += "\tclassDef active fill:#e2fcd4,stroke:#28a745,stroke-width:3px,font-weight:bold;\n";
+            
+            // Loop over all potential flowchart node identifiers to assign visibility status states
+            const allNodes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+            allNodes.forEach(node => {
+                if (activeNodes.includes(node)) {
+                    styleStrings += `\tclass ${node} active;\n`;
+                } else {
+                    styleStrings += `\tclass ${node} inactive;\n`;
+                }
+            });
+
+            // Combine base matrix graph schema with custom visual runtime updates
+            const fullDefinition = graphDefinition + styleStrings;
+
+            // Clear wrapper and write a fresh target pre element for render parse
+            const container = document.getElementById('mermaid-container');
+            container.innerHTML = `<pre class="mermaid">${fullDefinition}</pre>`;
+
+            // Trigger engine update refresh cycle parse securely
+            await mermaid.run();
+        }
+
+        // Initialize execution on runtime ready state load
+        window.addEventListener('DOMContentLoaded', () => {
+            updateArchitecture();
+        });
+    </script>
+</body>
+</html>
