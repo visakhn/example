@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bobcares — Senior Engineering Talent for Emirates ITS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0073EC;
+    --navy-deep: #0A2A57;
+    --sky: #00A8F3;
+    --turq: #00E8E8;
+    --grey: #67696B;
+    --ink: #16191C;
+    --bg: #F5F8FC;
+    --card: #FFFFFF;
+    --border: #E3E9F0;
+    --border-soft: #EEF2F6;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: 'Inter', sans-serif; font-weight: 300; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .display { font-family: 'Inter Tight', sans-serif; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
+  a { color: var(--navy); }
+
+  .hero {
+    background: linear-gradient(160deg, var(--navy-deep) 0%, #0F3D82 55%, var(--navy) 100%);
+    color: #fff; padding: 56px 40px 64px; position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: ""; position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 85% 20%, rgba(0,232,232,0.16), transparent 40%),
+      radial-gradient(circle at 100% 90%, rgba(0,168,243,0.25), transparent 45%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 1080px; margin: 0 auto; position: relative; }
+  .hero img.logo { height: 34px; margin-bottom: 40px; }
+  .hero-eyebrow {
+    display: inline-block; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--turq);
+    background: rgba(0,232,232,0.1); border: 1px solid rgba(0,232,232,0.35);
+    border-radius: 999px; padding: 6px 14px; margin-bottom: 20px;
+  }
+  .hero h1 { color: #fff; font-size: 40px; line-height: 1.15; margin: 0 0 14px; max-width: 640px; }
+  .hero p.sub { font-weight: 300; font-size: 17px; color: #D7E6FA; max-width: 560px; margin: 0; }
+  .hero-meta { display: flex; gap: 32px; margin-top: 36px; flex-wrap: wrap; }
+  .hero-meta div { border-left: 2px solid rgba(255,255,255,0.25); padding-left: 14px; }
+  .hero-meta .num { font-family: 'Inter Tight'; font-weight: 700; font-size: 22px; display:block; color: #fff; }
+  .hero-meta .lbl { font-size: 12.5px; color: #B9D2F0; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 48px 40px 80px; }
+  .role-section { margin-bottom: 64px; }
+  .role-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 20px; border-bottom: 2px solid var(--navy); padding-bottom: 12px;
+  }
+  .role-head h2 { font-size: 24px; margin: 0; }
+  .role-head span { color: var(--grey); font-size: 14px; }
+
+  .summary-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden; box-shadow: 0 1px 3px rgba(10,42,87,0.04), 0 8px 24px rgba(10,42,87,0.05);
+    margin-bottom: 28px;
+  }
+  table.summary { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  table.summary th {
+    background: #F0F5FC; color: var(--navy-deep); text-align: left; font-family: 'Inter Tight';
+    font-weight: 600; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 14px 18px; border-bottom: 1px solid var(--border);
+  }
+  table.summary td { padding: 16px 18px; border-bottom: 1px solid var(--border-soft); vertical-align: top; color: var(--ink); }
+  table.summary tr:last-child td { border-bottom: none; }
+  table.summary tr:hover td { background: #FAFCFE; }
+  .name-cell { font-family: 'Inter Tight'; font-weight: 600; white-space: nowrap; }
+  .yrs-badge {
+    display: inline-block; font-size: 12px; font-weight: 500; color: var(--navy);
+    background: rgba(0,115,236,0.08); border: 1px solid rgba(0,115,236,0.25);
+    border-radius: 999px; padding: 2px 10px; margin-top: 4px;
+  }
+
+  details.candidate {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    margin-bottom: 14px; overflow: hidden; box-shadow: 0 1px 2px rgba(10,42,87,0.03);
+  }
+  details.candidate[open] { border-color: #C7DCF5; }
+  summary.cand-summary {
+    list-style: none; cursor: pointer; padding: 20px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  summary.cand-summary::-webkit-details-marker { display: none; }
+  .cand-left { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0; }
+  .avatar {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--navy), var(--sky));
+    color: #fff; font-family: 'Inter Tight'; font-weight: 700; font-size: 16px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .cand-title { font-family: 'Inter Tight'; font-weight: 600; font-size: 16.5px; }
+  .cand-tagline { color: var(--grey); font-size: 13.5px; margin-top: 2px; }
+  .chevron {
+    width: 20px; height: 20px; flex-shrink: 0; border: 1.5px solid var(--border); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; color: var(--navy); font-size: 13px;
+    transition: transform 0.2s ease;
+  }
+  details[open] .chevron { transform: rotate(45deg); }
+
+  .cand-body { padding: 0 24px 26px; border-top: 1px solid var(--border-soft); }
+  .cand-body-inner { padding-top: 18px; }
+  .cand-section-label {
+    font-family: 'Inter Tight'; font-weight: 600; font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.05em; color: var(--grey); margin: 20px 0 10px;
+  }
+  .cand-section-label:first-child { margin-top: 0; }
+
+  .timeline { margin: 0; padding: 0; list-style: none; }
+  .timeline li {
+    position: relative; padding: 0 0 16px 22px; border-left: 2px solid var(--border-soft); margin-left: 4px;
+  }
+  .timeline li:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .timeline li::before {
+    content: ""; position: absolute; left: -6px; top: 3px; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--navy); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--navy);
+  }
+  .tl-role { font-weight: 600; font-size: 14.5px; color: var(--ink); }
+  .tl-meta { font-size: 13px; color: var(--grey); margin-top: 1px; }
+
+  .stack-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip {
+    font-size: 12.5px; font-weight: 500; color: var(--navy-deep);
+    background: #EEF6FF; border: 1px solid #D6E9FB; border-radius: 7px; padding: 5px 10px;
+  }
+
+  .project-list { margin: 0; padding: 0; list-style: none; }
+  .project-item { padding: 12px 0 12px 16px; border-left: 2px solid var(--border); margin-bottom: 6px; }
+  .project-item b { font-weight: 600; color: var(--ink); font-size: 14.5px; }
+  .project-item p { margin: 4px 0 0; font-size: 14px; color: var(--ink); }
+
+  .app-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .app-pill {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500;
+    text-decoration: none; color: var(--navy-deep); background: #EFF6FF; border: 1px solid #CFE3FA;
+    border-radius: 999px; padding: 6px 12px 6px 10px; transition: background 0.15s ease;
+  }
+  .app-pill:hover { background: #E2EFFD; }
+  .app-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--turq); flex-shrink: 0; }
+  .app-plain {
+    display: inline-flex; align-items: center; font-size: 13px; font-weight: 500;
+    color: var(--grey); background: #F5F6F7; border: 1px solid var(--border-soft);
+    border-radius: 999px; padding: 6px 12px;
+  }
+  .no-links { font-size: 13.5px; color: var(--grey); font-style: italic; }
+
+  footer { border-top: 1px solid var(--border); background: var(--card); padding: 40px; }
+  .footer-inner {
+    max-width: 1080px; margin: 0 auto; display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 20px;
+  }
+  footer img.logo { height: 26px; }
+  footer .fine { color: var(--grey); font-size: 13px; }
+
+  @media (max-width: 720px) {
+    .hero { padding: 40px 22px 48px; }
+    .hero h1 { font-size: 30px; }
+    .wrap { padding: 36px 20px 60px; }
+    table.summary { display: block; overflow-x: auto; white-space: nowrap; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <img src="https://portal.bobcares.com/assets/img/login/Login_Page_logo.png" alt="Bobcares">
+    <div class="hero-eyebrow">Prepared for Emirates ITS</div>
+    <h1>Senior engineering talent, shortlisted and ready to introduce</h1>
+    <p class="sub">Candidates matched against your Senior iOS Developer and Senior Backend Developer roles, drawn from our team and partner network.</p>
+    <div class="hero-meta">
+      <div><span class="num">10</span><span class="lbl">iOS candidates</span></div>
+      <div><span class="num">1</span><span class="lbl">Backend candidate</span></div>
+      <div><span class="num">50+</span><span class="lbl">Projects delivered</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ================= iOS ROLE ================= -->
+  <div class="role-section">
+    <div class="role-head">
+      <h2>Senior iOS Developer</h2>
+      <span>Swift · SwiftUI · UIKit · MVVM/Clean Architecture · REST APIs</span>
+    </div>
+
+    <div class="summary-card">
+      <table class="summary">
+        <thead><tr><th style="width:14%">Name</th><th style="width:44%">Capability Summary</th><th>Notable Apps</th></tr></thead>
+        <tbody>
+          <tr><td class="name-cell">Abhinesh<div class="yrs-badge">7+ yrs</div></td><td>Enterprise-scale iOS architect — multi-tenant platforms, hybrid auth systems, and reusable analytics tooling built for scale across dozens of client tenants.</td><td>Zoog, enterprise ITSM platforms</td></tr>
+          <tr><td class="name-cell">Sharath<div class="yrs-badge">5 yrs</div></td><td>Healthcare-domain specialist with measurable delivery impact — offline-first sync, code quality tooling, full release ownership.</td><td>Axxess HomeCare, Axxess Care</td></tr>
+          <tr><td class="name-cell">Harish<div class="yrs-badge">3+ yrs</div></td><td>Modern concurrency specialist with real HIPAA-compliant healthcare and augmented reality delivery experience.</td><td>Healthcare & AR platforms</td></tr>
+          <tr><td class="name-cell">Juvina<div class="yrs-badge">5+ yrs</div></td><td>Broad delivery range across transportation and food-delivery domains, plus a rare watchOS build.</td><td>Proteinium, RiceNGrills</td></tr>
+          <tr><td class="name-cell">Kiran<div class="yrs-badge">4 yrs</div></td><td>Well-rounded builder — real-time chat, HealthKit, and AR try-on features across multiple published apps.</td><td>Magnifi AI, Hanooman AI, Fittr Hart</td></tr>
+          <tr><td class="name-cell">Aashish<div class="yrs-badge">4+ yrs</div></td><td>Hands-on feature and UI ownership across three live consumer apps, fixing real production issues.</td><td>Pickey, Paris-Turf, DayCount</td></tr>
+          <tr><td class="name-cell">Manish<div class="yrs-badge">5+ yrs</div></td><td>iOS/Flutter hybrid with the deepest CI/CD and release-management track record in this group.</td><td>9 shipped consumer apps</td></tr>
+          <tr><td class="name-cell">Richard<div class="yrs-badge">Full-stack + iOS</div></td><td>Full-stack and applied-AI engineer with real, live consumer iOS apps in production today.</td><td>Foodzone Customer, Foodzone Delivery</td></tr>
+          <tr><td class="name-cell">Mihr<div class="yrs-badge">5+ yrs</div></td><td>iOS/Flutter hybrid with strong performance optimization and accessibility-aware development background.</td><td>8 shipped consumer apps</td></tr>
+          <tr><td class="name-cell">Ritik<div class="yrs-badge">4+ yrs</div></td><td>Consistent shipping record across six distinct apps spanning fitness, AR, and hospitality.</td><td>A Step Ahead, IntelePro</td></tr>
+          <tr><td class="name-cell">Roni<div class="yrs-badge">3 yrs</div></td><td>Product-focused developer turning Figma designs into pixel-accurate, production interfaces.</td><td>Foresight Pros, Lula Pros</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Abhinesh -->
+    <details class="candidate">
+      <summary class="cand-summary">
+        <div class="cand-left"><div class="avatar">AB</div>
+          <div><div class="cand-title">Abhinesh</div><div class="cand-tagline">7+ years · Senior iOS Engineer</div></div>
+        </div><div class="chevron">+</div>
+      </summary>
+      <div class="cand-body"><div class="cand-body-inner">
+        <div class="cand-section-label">Capability Summary</div>
+        <p>Senior iOS engineer with deep enterprise delivery experience — multi-tenant architecture, SSO/hybrid auth flows, and reusable analytics tooling built for scale across multiple client tenants.</p>
+
+        <div class="cand-section-label">Experience Timeline</div>
+        <ul class="timeline">
+          <li><div class="tl-role">Software Development Specialist – iOS, NTT Data</div><div class="tl-meta">2023 – Present · Pune, India</div></li>
+          <li><div class="tl-role">Senior Software Engineer – iOS, Mobio Solutions Pvt. Ltd.</div><div class="tl-meta">Nov 2022 – Jun 2023 · Ahmedabad, India</div></li>
+          <li><div class="tl-role">iOS Developer, Lemosys Infotech Pvt. Ltd.</div><div class="tl-meta">Jul 2021 – Oct 2022 · Indore, India</div></li>
+          <li><div class="tl-role">iOS Developer, Samyotech Software Solutions</div><div class="tl-meta">Mar 2019 – Jun 2021 · Indore, India</div></li>
+        </ul>
+
+        <div class="cand-section-label">Technical Stack</div>
+        <div class="stack-chips">
+          <span class="chip">Swift</span><span class="chip">SwiftUI</span><span class="chip">UIKit</span><span class="chip">MVVM</span><span class="chip">Combine</span>
+          <span class="chip">GCD</span><span class="chip">URLSession</span><span class="chip">Alamofire</span><span class="chip">Core Data</span><span class="chip">SQLite</span>
+          <span class="chip">Firestore</span><span class="chip">Firebase / Crashlytics</span><span class="chip">Amplitude</span><span class="chip">Google Analytics</span>
+          <span class="chip">GitHub Actions</span><span class="chip">TestFlight</span><span class="chip">Objective-C</span><span class="chip">Deep Linking</span><span class="chip">Push Notifications</span>
+        </div>
+
+        <div class="cand-section-label">Full Project Portfolio</div>
+        <ul class="project-list">
+          <li class="project-item"><b>NTT Data — Multi-tenant ITSM Platform</b><p>Architected and maintained a multi-tenant Swift/SwiftUI ITSM platform, onboarding 4+ enterprise clients with client-specific SSO, cookie-based authentication, and WKWebView hybrid flows. Owned end-to-end client onboarding, configuring auth layers, feature toggles, and local config systems, cutting setup time and ensuring seamless deployment across tenants. Modernized the legacy codebase by migrating older modules to SwiftUI and managed App Store deployments with zero-downtime release cycles. Built a native XCFramework for an analytics dashboard tracking in-app user behavior and navigation patterns, enabling reusable, plug-and-play analytics across products. Led a proof-of-concept replicating a web portal using SwiftUI and cookie-based API auth, with interactive charts and memory-optimized, scalable architecture.</p></li>
+          <li class="project-item"><b>Mobio Solutions</b><p>Delivered client-driven Swift/SwiftUI features under MVVM, improving UI responsiveness and user experience by 20–30%. Fixed bugs across a Kotlin Multiplatform Mobile (KMM) shared codebase, improving iOS/Android stability and parity.</p></li>
+          <li class="project-item"><b>Lemosys Infotech</b><p>Optimized and scaled 5+ iOS apps from scratch using Swift/UIKit/SwiftUI and MVVM, reducing crash rates 20–30% via Firebase Crashlytics. Applied payment gateways, push notifications, deep linking, in-app messaging, and offline storage, boosting user engagement and retention by 20%. Incorporated Google Analytics and Amplitude for user behavior tracking to drive data-informed product decisions. Translated client requirements into scalable iOS solutions in line with Apple Human Interface Guidelines.</p></li>
+          <li class="project-item"><b>Samyotech Software Solutions</b><p>Delivered 10+ iOS apps end-to-end, concept to App Store, ensuring full Apple guideline compliance. Leveraged social auth, push notifications, and third-party SDKs to improve feature set and engagement. Diagnosed and resolved crashes, memory leaks, and performance bottlenecks using Firebase Crashlytics and Xcode Instruments.</p></li>
+          <li class="project-item"><b>Zoog — AR Storytelling Platform</b><p>Developed an AR-powered storytelling application for interactive media experiences, configuring Snap Camera Kit, Firebase Firestore, SQLite, AVPlayer, Cloudinary, and analytics tracking under an MVVM architecture built for scalable feature management.</p></li>
+          <li class="project-item"><b>ServiceKey Nucleus</b><p>Architected a scalable multi-tenant ITSM iOS application integrated with ServiceNow using MVVM architecture, with OAuth/SSO authentication and WKWebView session handling for seamless hybrid workflows, plus REST API integration, Firebase push notifications, and chatbot features for enterprise engagement.</p></li>
+        </ul>
+
+        <div class="cand-section-label">Apps</div>
+        <div class="app-links">
+          <a class="app-pill" href="https://apps.apple.com/us/app/zoog-magical-storytime/id1534413894" target="_blank" rel="noopener"><span class="dot"></span>Zoog — App Store</a>
+        </div>
+        <p class="no-links" style="margin-top:8px;">Remaining work (NTT Data, Mobio, Lemosys, Samyotech, ServiceKey) is enterprise / client-proprietary — not public.</p>
+      </div></div>
+    </details>
+
+    <!-- Sharath -->
+    <details class="candidate">
+      <summary class="cand-summary">
+        <div class="cand-left"><div class="avatar">SH</div>
+          <div><div class="cand-title">Sharath</div><div class="cand-tagline">5 years · Healthcare & Enterprise Apps</div></div>
+        </div><div class="chevron">+</div>
+      </summary>
+      <div class="cand-body"><div class="cand-body-inner">
+        <div class="cand-section-label">Capability Summary</div>
+        <p>Results-driven senior iOS developer with 5+ years building scalable, production-grade mobile applications in the healthcare domain, owning complete feature lifecycles from architecture decisions through App Store deployment within fast-moving Agile teams.</p>
+
+        <div class="cand-section-label">Experience Timeline</div>
+        <ul class="timeline">
+          <li><div class="tl-role">Senior iOS Developer, Cavista Technology Pvt Ltd</div><div class="tl-meta">Dec 2022 – Mar 2026 · Pune, India (Remote)</div></li>
+          <li><div class="tl-role">Junior iOS Developer, Datamatics Global Services Ltd</div><div class="tl-meta">Jan 2021 – Dec 2022 · Bangalore, India</div></li>
+          <li><div class="tl-role">iOS Developer Intern, Datamatics Global Services Ltd</div><div class="tl-meta">Jan 2020 – May 2020 · Bangalore, India</div></li>
+        </ul>
+
+        <div class="cand-section-label">Technical Stack</div>
+        <div class="stack-chips">
+          <span class="chip">Swift</span><span class="chip">SwiftUI</span><span class="chip">UIKit</span><span class="chip">Combine</span><span class="chip">Swift Concurrency</span>
+          <span class="chip">MVVM</span><span class="chip">MVC</span><span class="chip">VIPER</span><span class="chip">Dependency Injection</span>
+          <span class="chip">REST APIs</span><span class="chip">Firebase</span><span class="chip">Realm</span><span class="chip">Core Data</span>
+          <span class="chip">Instruments</span><span class="chip">Memory Graph Debugger</span><span class="chip">Auto Layout</span><span class="chip">GCD</span><span class="chip">ARC</span>
+          <span class="chip">SwiftLint</span><span class="chip">SonarQube</span><span class="chip">XCTest</span><span class="chip">XCUITest</span><span class="chip">Fastlane</span><span class="chip">GitHub Actions</span>
+        </div>
+
+        <div class="cand-section-label">Full Project Portfolio</div>
+        <ul class="project-list">
+          <li class="project-item"><b>Axxess HomeCare — Provider App</b><p>Delivered 3+ major feature modules for a healthcare provider app used across hundreds of care facilities, contributing to a 20% reduction in provider workflow steps. Architected and built a shared SwiftUI/UIKit component library that cut new module development time by ~30% while ensuring consistent UX across all screens. Integrated Realm database with an offline-first sync strategy, reducing data-load errors by an estimated 40% in low-connectivity field environments. Improved overall code quality score by 25% using SwiftLint and SonarQube, reducing technical debt across 50,000+ lines of Swift code. Championed MVVM architecture adoption across the team, enabling parallel feature development and cleaner unit-test coverage. Implemented Firebase Analytics and push notification pipelines supporting real-time clinical alerting. Owned the end-to-end App Store release process including provisioning profiles, certificates, TestFlight beta distribution, and production deployments. Maintained 25%+ unit test coverage across core modules using XCTest.</p></li>
+          <li class="project-item"><b>Axxess Care — Provider App</b><p>Designed a reusable Auto Layout component system adopted across 8+ screens, cutting UI development effort by 35%. Integrated real-time backend services via REST/JSON with robust error-handling and retry logic for healthcare-critical operations.</p></li>
+          <li class="project-item"><b>Sales One App — Enterprise Sales Management</b><p>Built and maintained enterprise iOS applications serving 5,000+ field sales representatives with offline-capable Salesforce data sync via Core Data. Integrated the Salesforce SDK for bi-directional sales data sync and built reporting dashboards for pipeline visibility, reducing manual reporting effort for managers. Reduced average API response handling time by refactoring the networking layer, improving UI responsiveness on low-bandwidth networks.</p></li>
+          <li class="project-item"><b>Bucapp — Digital Platform Services</b><p>Delivered modern SwiftUI screens from Figma designs with pixel-perfect implementation, and set up Firebase Analytics event tracking to support the product team with user behavior insights.</p></li>
+        </ul>
+        <p style="font-size:13.5px; color:var(--grey); margin-top:10px;">Also mentors junior engineers on iOS best practices, code review standards, and Git workflow, and has led MVVM architecture migration across a 5-developer team.</p>
+
+        <div class="cand-section-label">Apps</div>
+        <div class="app-links">
+          <a class="app-pill" href="https://apps.apple.com/us/app/axxess-homecare/id1210498152" target="_blank" rel="noopener"><span class="dot"></span>Axxess HomeCare — App Store</a>
+          <a class="app-pill" href="https://apps.apple.com/us/app/axxess-care-provider/id1159378578" target="_blank" rel="noopener"><span class="dot"></span>Axxess Care — App Store</a>
+        </div>
+      </div></div>
+    </details>
+
+    <!-- Harish -->
+    <details class="candidate">
+      <summary class="cand-summary">
+        <div class="cand-left"><div class="avatar">HA</div>
+          <div><div class="cand-title">Harish</div><div class="cand-tagline">3+ years · Senior iOS Developer</div></div>
+        </div><div class="chevron">+</div>
+      </summary>
+      <div class="cand-body"><div class="cand-body-inner">
+        <div class="cand-section-label">Capability Summary</div>
+        <p>Modern iOS practitioner comfortable with structured concurrency and async/await, with real healthcare (HIPAA-compliant) and augmented reality delivery experience, and a track record of production-grade CI/CD ownership.</p>
+
+        <div class="cand-section-label">Experience Timeline</div>
+        <p style="font-size:14px; color:var(--grey);">Project-based engagement history — 3+ years total professional experience; specific employer names and dates not itemized in source resume.</p>
+
+        <div class="cand-section-label">Technical Stack</div>
+        <div class="stack-chips">
+          <span class="chip">Swift</span><span class="chip">SwiftUI</span><span class="chip">UIKit</span><span class="chip">Objective-C</span>
+          <span class="chip">MVVM</span><span class="chip">Coordinator Pattern</span><span class="chip">Clean Architecture</span><span class="chip">Async/Await</span><span class="chip">Structured Concurrency</span>
+          <span class="chip">Core Data</span><span class="chip">REST APIs</span><span class="chip">Firebase (Auth/Firestore/Cloud Messaging)</span>
+          <span class="chip">Instruments</span><span class="chip">XCTest</span><span class="chip">Xcode Cloud</span><span class="chip">TestFlight</span><span class="chip">CocoaPods</span><span class="chip">ARKit</span><span class="chip">SceneKit</span>
+        </div>
+
+        <div class="cand-section-label">Full Project Portfolio</div>
+        <ul class="project-list">
+          <li class="project-item"><b>Unify Care — Healthcare (Role: Senior iOS Developer)</b><p>A scalable healthcare platform providing patient–doctor interaction through appointment booking, EHR management, messaging, and video consultations. Developed a dual-module iOS app (Patient + Practitioner) using Swift, SwiftUI, MVVM, and the Coordinator architecture. Implemented async/await-based networking and structured concurrency for real-time features and background processing. Integrated Firebase (Auth, Firestore, Cloud Messaging) for authentication and real-time data sync, and Core Data for local storage and offline capabilities. Ensured HIPAA-compliant data handling and encryption practices, and built CI/CD pipelines using Xcode Cloud and TestFlight.</p></li>
+          <li class="project-item"><b>Care Health — Insurance & Wellness (Role: iOS Developer)</b><p>A customer-centric app offering insurance services, wellness tracking, and teleconsultation features. Developed scalable features using Swift, SwiftUI, and UIKit in a hybrid approach, with reusable modules under MVVM. Implemented modern concurrency (async/await) for API communication, integrated REST APIs and third-party SDKs for authentication and payments, and managed App Store releases and TestFlight distribution cycles.</p></li>
+          <li class="project-item"><b>AR Luminaire — Augmented Reality (Role: iOS Developer)</b><p>An AR-based application enabling users to visualize and customize lighting in real-world environments. Developed AR features using ARKit and SceneKit, engineered real-time lighting simulations, and optimized 3D rendering performance and asset size to reduce lag and improve frame rate. Built seamless UI using SwiftUI + UIKit integration and integrated Firebase Analytics for feature optimization.</p></li>
+          <li class="project-item"><b>eMembership Card — Digital Identity (Role: iOS Developer)</b><p>A digital identity and membership card application for secure storage and management of user credentials. Implemented async/await networking for API integrations, designed adaptive UI with light/dark mode support, and used Core Data for local persistence and caching, with automated TestFlight deployment and full unit/UI test coverage.</p></li>
+        </ul>
+
+        <div class="cand-section-label">Apps</div>
+        <p class="no-links">Listed as "iOS Apps on App Store" in the source resume without individual links — healthcare/enterprise work, not independently verified public listings.</p>
+      </div></div>
+    </details>
+
+    <!-- Juvina -->
+    <details class="candidate">
+      <summary class="cand-summary">
+        <div class="cand-left"><div class="avatar">JU</div>
+          <div><div class="cand-title">Juvina</div><div class="cand-tagline">5+ years · Transportation & Food-Delivery Domains</div></div>
+        </div><div class="chevron">+</div>
+      </summary>
+      <div class="cand-body"><div class="cand-body-inner">
+        <div class="cand-section-label">Capability Summary</div>
+        <p>Broad delivery experience across consumer and enterprise domains, with proven MVVM architecture ownership, App Store deployment discipline, and — a less common skill worth noting — real watchOS build experience.</p>
+
+        <div class="cand-section-label">Experience Timeline</div>
+        <ul class="timeline">
+          <li><div class="tl-role">Senior Software Engineer – L1 (iOS), iROID Technologies</div><div class="tl-meta">Apr 2024 – Mar 2026</div></li>
+          <li><div class="tl-role">iOS Developer, HubSpire IT Solutions Pvt. Ltd.</div><div class="tl-meta">Dec 2021 – Mar 2024</div></li>
+          <li><div class="tl-role">Associate Software Engineer (iOS), HubSpire IT Solutions Pvt. Ltd.</div><div class="tl-meta">Sep 2020 – Dec 2021</div></li>
+        </ul>
+
+        <div class="cand-section-label">Technical Stack</div>
+        <div class="stack-chips">
+          <span class="chip">Swift</span><span class="chip">SwiftUI</span><span class="chip">UIKit</span><span class="chip">MVVM</span><span class="chip">MVC</span>
+          <span class="chip">Xcode Cloud</span><span class="chip">TestFlight</span><span class="chip">XCTest</span><span class="chip">Swift Testing</span><span class="chip">Google Maps SDK</span><span class="chip">Firebase Cloud Messaging</span>
+        </div>
+
+        <div class="cand-section-label">Full Project Portfolio</div>
+        <ul class="project-list">
+          <li class="project-item"><b>iROID Technologies — Senior Software Engineer</b><p>Led development of key iOS features using SwiftUI and UIKit, took ownership of application modules, and improved code architecture using MVVM. Mentored junior developers, participated in technical decision-making, and improved application stability and performance through proactive debugging.</p></li>
+          <li class="project-item"><b>Onboard Validation Device</b><p>Developed a ticket validation system for transportation using SwiftUI, integrating real-time APIs for ticket verification and data synchronization.</p></li>
+          <li class="project-item"><b>Proteinium</b><p>Built a diet-based food ordering application enabling users to select meals based on personalized nutrition plans. Integrated REST APIs for menu management, subscriptions, and order processing, implemented a user-friendly UIKit interface, and contributed to App Store deployment and release management.</p></li>
+          <li class="project-item"><b>RiceNGrills</b><p>Developed a feature-rich food delivery application with order scheduling, multiple payment options, and offers management. Integrated payment gateways and REST APIs, and implemented coupon, cashback, and discount engines to improve customer retention.</p></li>
+          <li class="project-item"><b>Track My HR</b><p>Developed a watchOS and iPad prototype application for monitoring patient heart rate data, integrating health-related data handling for real-time tracking and visualization, designed for clinical use cases with a focus on reliability and simplicity, distributed via TestFlight for stakeholder evaluation.</p></li>
+          <li class="project-item"><b>Pronto Vendor App</b><p>Developed a vendor-side application to manage orders, deliveries, and payment tracking. Integrated the Google Maps SDK for real-time delivery tracking, implemented push notifications via Firebase Cloud Messaging, and designed dashboards for vendors to monitor order status and revenue insights.</p></li>
+        </ul>
+
+        <div class="cand-section-label">Apps</div>
+        <div class="app-links">
+          <a class="app-pill" href="https://apps.apple.com/in/app/proteinium/id1575702864" target="_blank" rel="noopener"><span class="dot"></span>Proteinium — App Store</a>
+        </div>
+        <p class="no-links" style="margin-top:8px;">Other apps (RiceNGrills, Track My HR, Pronto Vendor App, Onboard Validation Device) not independently confirmed as public listings.</p>
+      </div></div>
+    </details>
+
+    <!-- Kiran -->
+    <details class="candidate">
+      <summary class="cand-summary">
+        <div class="cand-left"><div class="avatar">KI</div>
+          <div><div class="cand-title">Kiran</div><div class="cand-tagline">4 years · iOS Developer</div></div>
+        </div><div class="chevron">+</div>
+      </summary>
+      <div class="cand-body"><div class="cand-body-inner">
+        <div class="cand-section-label">Capability Summary</div>
+        <p>Innovative, detail-oriented iOS developer with strong knowledge of MVC, MVVM, and VIPER architectures, real-time chat systems, and third-party SDK integration, with a consistent focus on UI/UX best practice and code quality.</p>
+
+        <div class="cand-section-label">Experience Timeline</div>
+        <p style="font-size:14px; color:var(--grey);">4 years of professional iOS development; specific employer names and dates not itemized in source resume.</p>
+
+        <div class="cand-section-label">Technical Stack</div>
+        <div class="stack-chips">
+          <span class="chip">Swift</span><span class="chip">Objective-C</span><span class="chip">SwiftUI</span><span class="chip">UIKit</span>
+          <span class="chip">Core Data</span><span class="chip">CoreAnimation</span><span class="chip">Combine</span><span class="chip">Alamofire</span><span class="chip">MapKit</span>
+          <span class="chip">MVC</span><span class="chip">MVVM</span><span class="chip">VIPER</span><span class="chip">REST</span><span class="chip">GraphQL</span>
+          <span class="chip">Xcode</span><span class="chip">CocoaPods</span><span class="chip">Fastlane</span><span class="chip">OAuth</span><span class="chip">JWT</span><span class="chip">APNs</span><span class="chip">Firebase Cloud Messaging</span>
+        </div>
+
+        <div class="cand-section-label">Full Project Portfolio</div>
+        <ul class="project-list">
+          <li class="project-item"><b>Social Media iOS App</b><p>Built a social networking app with real-time chat, image/video sharing, and user profile management. Designed and implemented user authentication, profiles, and feed modules; built real-time chat using Firebase Firestore and optimized image/video uploads; applied SwiftUI and Combine for reactive UI components; worked closely with designers on responsive, interactive UI; debugged and resolved app crashes and performance bottlenecks.</p></li>
+          <li class="project-item"><b>Fitness & Wellness Tracker</b><p>Designed a wellness platform with Apple HealthKit integration, step tracking, and personalized goal recommendations. Integrated HealthKit & CoreMotion APIs for activity tracking, developed SwiftUI dashboards for progress visualization, and added push notifications and reminders for workout sessions.</p></li>
+          <li class="project-item"><b>Retail Store Magic Mirror</b><p>Built a "Magic Mirror" experience letting customers digitally try on clothes with customizable backgrounds, integrated with backend APIs for product catalogs. Implemented AR-based preview using ARKit & AVFoundation and designed adaptive UI for kiosk screens.</p></li>
+          <li class="project-item"><b>Expense Management & Budgeting App</b><p>Developed an iOS app to manage expenses, generate reports, and sync data across devices. Implemented offline-first data storage using Realm, integrated chart visualizations for monthly reports, and secured user data with biometric authentication (FaceID/TouchID).</p></li>
+        </ul>
+
+        <div class="cand-section-label">Apps</div>
+        <div class="app-links">
+          <a class="app-pill" href="https://apps.apple.com/us/app/magnifi-invest-with-ai/id1574358920" target="_blank" rel="noopener"><span class="dot"></span>Magnifi AI</a>
+          <a class="app-pill" href="https://play.google.com/store/apps/details?id=com.hanoomanai.app&hl=en_IN" target="_blank" rel="noopener"><span class="dot"></span>Hanooman AI</a>
+          <a class="app-pill" href="https://apps.apple.com/us/app/arrango-%D8%A3%D8%B1%D8%A7%D9%86%D8%AC%D9%88/id6505101896" target="_blank" rel="noopener"><span class="dot"></span>Arrango</a>
+          <a class="app-pill" href="https://play.google.com/store/apps/details?id=com.app.saudireadymix&hl=en_IN" target="_blank" rel="noopener"><span class="dot"></span>Engage (Android)</a>
+          <a class="app-pill" href="https://apps.apple.com/qa/app/customer-app-engage/id1576666433" target="_blank" rel="noopener"><span class="dot"></span>Engage (iOS)</a>
+          <a class="app-pill" href="https://apps.apple.com/in/app/fittr-hart/id647371647411" target="_blank" rel="noopener"><span class="dot"></span>Fittr Hart</a>
+          <a class="app-pill" href="https://play.google.com/store/apps/details?id=com.noviolation.facilitr&hl=enIN" target="_blank" rel="noopener"><span class="dot"></span>Facilitr</a>
+        </div>
+      </div></div>
+    </details>
+
+    <!-- Aashish -->
+    <details class="candidate">
+      <summary class="cand-summary">
+        <div class="cand-left"><div class="avatar">AA</div>
+          <div><div class="cand-title">Aashish</div><div class="cand-tagline">4+ years · iOS Developer</div></div>
+        </div><div class="chevron">+</div>
+      </summary>
+      <div class="cand-body"><div class="cand-body-inner">
+        <div class="cand-section-label">Capability Summary</div>
+        <p>Results-driven iOS developer skilled in integrating RESTful APIs, optimizing app performance, and delivering user-friendly mobile experiences, with a strong focus on clean architecture and continuous learning.</p>
+
+        <div class="cand-section-label">Experience Timeline</div>
+        <ul class="timeline">
+          <li><div class="tl-role">iOS Developer, Software System</div><div class="tl-meta">Oct 2021 – Present</div></li>
+        </ul>
+
+        <div class="cand-section-label">Technical Stack</div>
+        <div class="stack-chips">
+          <span class="chip">Swift</span><span class="chip">SwiftUI</span><span class="chip">C</span><span class="chip">C++</span>
+          <span class="chip">UIKit</span><span class="chip">Foundation</span><span class="chip">MVC</span><span class="chip">MVVM</span>
+          <span class="chip">REST APIs</span><span class="chip">JSON Parsing</span><span class="chip">Firebase</span><span class="chip">Xcode</span><span class="chip">Git</span>
+        </div>
+
+        <div class="cand-section-label">Full Project Portfolio</div>
+        <ul class="project-list">
+          <li class="project-item"><b>Pickey</b><p>A secure password manager making password management simple, visual, and fun with an intuitive UI and strong encryption. Added custom animations for smooth, engaging transitions, updated UI elements to match the latest design guidelines, and fixed layout and view rendering issues across multiple screen sizes for a consistent user experience.</p></li>
+          <li class="project-item"><b>Paris-Turf</b><p>A horse racing app providing live race updates, expert analysis, results, and predictions. Worked on revamping the UI for design consistency, visual appeal, and usability, and implemented new functionality aligned with the updated UI flow and client requirements.</p></li>
+          <li class="project-item"><b>DayCount</b><p>A beautiful event-tracker letting users count down to or since important dates with widgets, streak tracking, and cloud sync. Contributed to UI updates and bug fixing related to cell rendering and index path handling, and resolved issues where API-fetched data wasn't displaying correctly in table/collection views.</p></li>
+        </ul>
+        <p style="font-size:13.5px; color:var(--grey); margin-top:10px;">Also holds certifications in C and C++ programming languages.</p>
+
+        <div class="cand-section-label">Apps</div>
+        <div class="app-links">
+          <a class="app-pill" href="https://apps.apple.com/in/app/pickey/id1596316001" target="_blank" rel="noopener"><span class="dot"></span>Pickey</a>
+          <a class="app-pill" href="https://apps.apple.com/in/app/paris-turf-pari-hippique/id1489328333" target="_blank" rel="noopener"><span class="dot"></span>Paris-Turf</a>
+          <a class="app-pill" href="https://apps.apple.com/in/app/daycount/id1121088244" target="_blank" rel="noopener"><span class="dot"></span>DayCount</a>
+        </div>
+      </div></div>
+    </details>
+
+    <!-- Manish -->
+    <details class="candidate">
+      <summary class="cand-summary">
+        <div class="cand-left"><div class="avatar">MA</div>
+          <div><div class="cand-title">Manish</div><div class="cand-tagline">5+ years · Mobile Engineer (iOS & Flutter)</div></div>
+        </div><div class="chevron">+</div>
+      </summary>
+      <div class="cand-body"><div class="cand-body-inner">
+        <div class="cand-section-label">Capability Summary</div>
+        <p>Rich experience across the full mobile development life cycle — from UI/UX design through software architecture, deployment, and ongoing updates. Known for excellent troubleshooting skills and cost-effective, well-researched engineering solutions, with the deepest release-management track record of this group.</p>
+
+        <div class="cand-section-label">Experience Timeline</div>
+        <p style="font-size:14px; color:var(--grey);">5+ years of continuous iOS/Flutter application delivery; specific employer names and dates not itemized in source resume.</p>
+
+        <div class="cand-section-label">Technical Stack</div>
+        <div class="stack-chips">
+          <span class="chip">Swift</span><span class="chip">Flutter (Dart)</span><span class="chip">SwiftUI</span><span class="chip">Objective-C</span>
+          <span class="chip">MVVM</span><span class="chip">MVVM-C (Coordinator)</span><span class="chip">Clean Architecture</span>
+          <span class="chip">UIKit</span><span class="chip">Core Data</span><span class="chip">Combine</span><span class="chip">GCD</span><span class="chip">Async/Await</span><span class="chip">Firebase Realtime Database</span>
+          <span class="chip">REST / GraphQL</span><span class="chip">SPM</span><span class="chip">CocoaPods</span><span class="chip">XCTest</span><span class="chip">XCUITest</span>
+          <span class="chip">GitLab CI/CD</span><span class="chip">Fastlane</span><span class="chip">Xcode Cloud</span><span class="chip">Azure DevOps</span>
+          <span class="chip">App Store Connect</span><span class="chip">TestFlight</span><span class="chip">Azure</span><span class="chip">Databricks</span>
+        </div>
+
+        <div class="cand-section-label">Full Project Portfolio</div>
+        <ul class="project-list">
+          <li class="project-item"><b>Virtual Profile</b><p>Creates a quick virtual business profile — generates a business QR code on the fly by adding social media profiles and basic information, usable as a wallpaper for connections to scan and view a digital business card. Built with Xcode, SwiftUI, Flutter.</p></li>
+          <li class="project-item"><b>Smart Learning Platform</b><p>Delivers digital course packs for Grades 1–10 across CBSE, Gujarat (GSEB), and Maharashtra (MSEB) boards, combining world-class audio/visual content, comprehensive notes, and a unique assessment engine with a state-of-the-art engagement platform for anytime, anywhere digital learning. Built with Xcode, Swift.</p></li>
+          <li class="project-item"><b>Credit Score App</b><p>Lets users quickly check their credit score via one-step registration, comparing information against thousands of previous reports with detailed financial reporting. Built with Xcode, Swift, Flutter.</p></li>
+          <li class="project-item"><b>Community App</b><p>A community application bringing devotional books, songs, images, videos, and events together, with member registration and in-app book purchasing. Built with Xcode, Swift, Flutter.</p></li>
+          <li class="project-item"><b>SQRL</b><p>Helps users invest in physical and financial well-being in one place, tracking daily steps and building a 10,000-steps-a-day habit. Built with Xcode, Swift.</p></li>
+          <li class="project-item"><b>MOSAICO</b><p>Brings a user's Instagram feed to perfection — curating and complementing a growing feed with seamless organization, planning, and tagging tools. Built with Xcode, Swift.</p></li>
+          <li class="project-item"><b>Gif Maker</b><p>An animated GIF generator that captures images and video, with a library of animated masks and stickers, Giphy search/import, filters, effects, and text/caption tools. Built with Xcode, Swift.</p></li>
+          <li class="project-item"><b>Yoga Asanas</b><p>An advanced mobile yoga studio offering 50+ HD yoga and meditation exercises and a database of 300+ yoga poses. Built with Xcode, Objective-C.</p></li>
+          <li class="project-item"><b>Colorok</b><p>A digital colouring app with hundreds of designs across Mandalas, Florals, Cartoons, Animals, and more artwork categories. Built with Xcode, Objective-C.</p></li>
+        </ul>
+
+        <div class="cand-section-label">Apps</div>
+        <p class="no-links">Project names above are not independently confirmed as current public App Store listings.</p>
+      </div></div>
+    </details>
+
+    <!-- Richard -->
+    <details class="candidate">
+      <summary class="cand-summary">
+        <div class="cand-left"><div class="avatar">RI</div>
+          <div><div class="cand-title">Richard</div><div class="cand-tagline">Software / AI Developer, with real shipped iOS apps</div></div>
+        </div><div class="chevron">+</div>
+      </summary>
+      <div class="cand-body"><div class="cand-body-inner">
+        <div class="cand-section-label">Capability Summary</div>
+        <p>Software and AI engineer with a track record of shipping production systems across full-stack, backend, and applied AI, plus hands-on native iOS development and low-level Swift interoperability work — comfortable owning a project end-to-end, from architecture to real-world deployment. Live, published consumer apps on the UAE App Store are a strong proof point for the iOS side specifically.</p>
+
+        <div class="cand-section-label">Experience Timeline</div>
+        <ul class="timeline">
+          <li><div class="tl-role">AI Engineer, Carestack</div><div class="tl-meta">Trivandrum, Kerala, India · Remote</div></li>
+          <li><div class="tl-role">Founder / Builder, Toolchat.io</div><div class="tl-meta">Remote</div></li>
+          <li><div class="tl-role">Technical Officer, Legacy IEDC UCEK</div><div class="tl-meta">Trivandrum, Kerala, India</div></li>
+          <li><div class="tl-role">Backend Intern, Riglabs</div><div class="tl-meta">Trivandrum, Kerala, India</div></li>
+        </ul>
+        <p style="font-size:13px; color:var(--grey); margin-top:-4px;">Specific date ranges not itemized in source resume.</p>
+
+        <div class="cand-section-label">Technical Stack</div>
+        <div class="stack-chips">
+          <span class="chip">Swift</span><span class="chip">iOS SDK</span><span class="chip">Swift Package Manager</span><span class="chip">Xamarin Bindings</span><span class="chip">Flutter</span>
+          <span class="chip">TypeScript</span><span class="chip">Python</span><span class="chip">C/C++</span><span class="chip">JavaScript</span><span class="chip">Ruby</span><span class="chip">Dart</span><span class="chip">Java</span>
+          <span class="chip">React</span><span class="chip">Node.js</span><span class="chip">Flask</span><span class="chip">Next.js</span><span class="chip">FastAPI</span><span class="chip">Ruby on Rails</span>
+          <span class="chip">Git</span><span class="chip">AWS</span><span class="chip">GCP</span><span class="chip">Nginx</span><span class="chip">Machine Learning</span><span class="chip">Gen AI</span><span class="chip">Real-time Audio/Voice</span>
+        </div>
+
+        <div class="cand-section-label">Full Project Portfolio</div>
+        <ul class="project-list">
+          <li class="project-item"><b>Foodzone Customer & Foodzone Delivery</b><p>Live, published consumer and delivery-partner apps on the App Store.</p></li>
+          <li class="project-item"><b>One One — Cross-Platform Voice Communication App</b><p>Building a walkie-talkie style social communication app with real-time, low-latency voice broadcasting; the native iOS build is complete and in final release preparation ahead of App Store launch. Designed the end-to-end architecture spanning the iOS/Flutter client, real-time backend infrastructure, push notification handling, and scalable voice communication systems.</p></li>
+          <li class="project-item"><b>Confidential Client Project — Xamarin Bindings for Swift Library</b><p>Built Xamarin binding libraries exposing a native Swift library to .NET/Xamarin consumers, working directly with Swift's ABI, module maps, and interop boundaries — resolving type-marshalling and linking issues between Swift and C#/.NET.</p></li>
+          <li class="project-item"><b>Carestack — AI Insurance Verification</b><p>Built a system combining clearinghouse APIs with an AI layer for insurance verification, designing verification workflows across visit types and enabling real-time conversational verification with structured data pushed into EMRs/CRMs.</p></li>
+          <li class="project-item"><b>Toolchat.io (Founder)</b><p>Led product development and design for an AI-powered file assistant that compresses, converts, merges, and edits files through a chat interface, built for non-technical users.</p></li>
+          <li class="project-item"><b>Legacy IEDC UCEK</b><p>Self-built the organization's website (Next.js) end-to-end, and developed a Generative AI PWA to automatically generate a weekly article series.</p></li>
+          <li class="project-item"><b>Riglabs — Elderwand Project</b><p>Completed the backend authentication module (Node.js) and fixed crucial bugs on the organization's official website.</p></li>
+        </ul>
+
+        <div class="cand-section-label">Apps</div>
+        <div class="app-links">
+          <a class="app-pill" href="https://apps.apple.com/ae/app/foodzone-customer/id6756630471" target="_blank" rel="noopener"><span class="dot"></span>Foodzone Customer</a>
+          <a class="app-pill" href="https://apps.apple.com/ae/app/foodzone-delivery/id6757369953" target="_blank" rel="noopener"><span class="dot"></span>Foodzone Delivery</a>
+        </div>
+      </div></div>
+    </details>
+
+    <!-- Mihr -->
+    <details class="candidate">
+      <summary class="cand-summary">
+        <div class="cand-left"><div class="avatar">MI</div>
+          <div><div class="cand-title">Mihr</div><div class="cand-tagline">5+ years · Mobile Engineer (iOS & Flutter)</div></div>
+        </div><div class="chevron">+</div>
+      </summary>
+      <div class="cand-body"><div class="cand-body-inner">
+        <div class="cand-section-label">Capability Summary</div>
+        <p>Mobile application developer specializing in Flutter and iOS (Swift), with proven ability to optimize app performance, improve memory usage, and deliver smooth user experiences across devices — including genuine accessibility-aware development, text scaling, semantic widgets, contrast optimization, and VoiceOver support.</p>
+
+        <div class="cand-section-label">Experience Timeline</div>
+        <p style="font-size:14px; color:var(--grey);">5+ years of continuous mobile application delivery; specific employer names and dates not itemized in source resume.</p>
+
+        <div class="cand-section-label">Technical Stack</div>
+        <div class="stack-chips">
+          <span class="chip">Flutter (Dart)</span><span class="chip">Swift</span><span class="chip">SwiftUI</span><span class="chip">Objective-C</span>
+          <span class="chip">MVVM</span><span class="chip">Clean Architecture</span><span class="chip">BLoC</span><span class="chip">Provider</span>
+          <span class="chip">UIKit</span><span class="chip">Auto Layout</span><span class="chip">Storyboard</span><span class="chip">REST / GraphQL APIs</span>
+          <span class="chip">Firebase Realtime DB</span><span class="chip">FCM</span><span class="chip">Firebase Analytics</span>
+          <span class="chip">GCD</span><span class="chip">Async/Await</span><span class="chip">Combine</span><span class="chip">XCTest</span><span class="chip">XCUITest</span>
+          <span class="chip">Fastlane</span><span class="chip">Xcode Cloud</span><span class="chip">Azure DevOps</span><span class="chip">Azure</span><span class="chip">Databricks</span>
+        </div>
+
+        <div class="cand-section-label">Full Project Portfolio</div>
+        <ul class="project-list">
+          <li class="project-item"><b>News Application (Flutter)</b><p>Developed a scalable news platform delivering real-time national and international news with images and video. Implemented Bloc/Provider state management for efficient UI updates, optimized API calls for load time and scrolling performance, and ensured smooth UX with pagination and offline handling.</p></li>
+          <li class="project-item"><b>Food Ordering Application (Flutter)</b><p>Built dual User & Vendor apps for restaurant discovery and order management, with real-time order status updates, push notifications, and integrated secure payment gateway and REST APIs — improving order flow efficiency and reducing UI lag through optimized state handling.</p></li>
+          <li class="project-item"><b>Trade App (Flutter)</b><p>Developed live Gold & Silver price tracking with high-low indicators and real-time alerts for price fluctuations, with app widgets for quick market access and a strong focus on performance for continuous data updates.</p></li>
+          <li class="project-item"><b>Credit Score App (Swift/Flutter)</b><p>Developed a secure credit score application with one-step user registration, optimized memory handling for large financial reports, and integrated financial APIs with a focus on data privacy and reliability.</p></li>
+          <li class="project-item"><b>Community App (Swift/Flutter)</b><p>Built a content-rich community platform featuring books, songs, videos, and events, with in-app purchases for digital content and enhanced engagement through smooth navigation.</p></li>
+          <li class="project-item"><b>Election App (Swift)</b><p>Developed features for Voter ID search, constituency details, election results, and live news, with user-friendly interfaces designed for high-traffic usage during elections.</p></li>
+          <li class="project-item"><b>Lenses2Go (Swift)</b><p>Created appointment booking and e-commerce functionality for eyewear services, integrating scheduling, location selection, and purchase workflows with a focus on conversion optimization.</p></li>
+          <li class="project-item"><b>Tikepam (Swift)</b><p>Developed event ticket booking and sharing functionality with secure payment and event discovery features, improving app stability and performance during high-traffic events.</p></li>
+        </ul>
+
+        <div class="cand-section-label">Apps</div>
+        <p class="no-links">Project names above are not independently confirmed as current public App Store listings.</p>
+      </div></div>
+    </details>
+
+    <!-- Ritik -->
+    <details class="candidate">
+      <summary class="cand-summary">
+        <div class="cand-left"><div class="avatar">RT</div>
+          <div><div class="cand-title">Ritik</div><div class="cand-tagline">4+ years · iOS Developer</div></div>
+        </div><div class="chevron">+</div>
+      </summary>
+      <div class="cand-body"><div class="cand-body-inner">
+        <div class="cand-section-label">Capability Summary</div>
+        <p>Highly skilled mobile application development professional with advanced knowledge of Swift, Objective-C, and Xcode — an expert in fitness, dating, and video streaming app development, with creative problem-solving strength across small, focused teams.</p>
+
+        <div class="cand-section-label">Experience Timeline</div>
+        <ul class="timeline">
+          <li><div class="tl-role">Software Engineer, ISoftware System</div><div class="tl-meta">2021 – Present</div></li>
+        </ul>
+
+        <div class="cand-section-label">Technical Stack</div>
+        <div class="stack-chips">
+          <span class="chip">Swift</span><span class="chip">Objective-C</span><span class="chip">Cocoa Touch</span><span class="chip">Core Services</span><span class="chip">Core OS</span><span class="chip">Firebase</span>
+          <span class="chip">Git</span><span class="chip">Bitbucket</span><span class="chip">Jira</span><span class="chip">Asana</span><span class="chip">Trello</span>
+        </div>
+
+        <div class="cand-section-label">Full Project Portfolio</div>
+        <ul class="project-list">
+          <li class="project-item"><b>A Step Ahead</b><p>Heartrate monitoring app, built with a 2-developer iOS team.</p></li>
+          <li class="project-item"><b>Acadia National Park</b><p>ARKit-based national park guide app, solo build.</p></li>
+          <li class="project-item"><b>Bhakti Vikasa Swami</b><p>Specialized in background audio downloading and playback, 2-developer team.</p></li>
+          <li class="project-item"><b>Day Translations</b><p>Voice recognition and localization features, 2-developer team.</p></li>
+          <li class="project-item"><b>IntelePro</b><p>Hotel and flight booking platform, 3-developer team.</p></li>
+          <li class="project-item"><b>Following</b><p>CoreData-based application, solo build.</p></li>
+        </ul>
+
+        <div class="cand-section-label">Apps</div>
+        <div class="app-links">
+          <a class="app-pill" href="https://apps.apple.com/us/app/a-step-ahead/id6443818464" target="_blank" rel="noopener"><span class="dot"></span>A Step Ahead</a>
+          <a class="app-pill" href="https://apps.apple.com/us/app/acadia-natl-park/id6504344102?platform=iphone" target="_blank" rel="noopener"><span class="dot"></span>Acadia National Park</a>
+          <a class="app-pill" href="https://apps.apple.com/us/app/bhakti-vikasa-swami/id1536451261?platform=iphone" target="_blank" rel="noopener"><span class="dot"></span>Bhakti Vikasa Swami</a>
+          <a class="app-pill" href="https://apps.apple.com/us/app/day-translations/id1324948920?platform=iphone" target="_blank" rel="noopener"><span class="dot"></span>Day Translations</a>
+          <a class="app-pill" href="https://apps.apple.com/us/app/intelepro-mobile-app/id6499270069" target="_blank" rel="noopener"><span class="dot"></span>IntelePro</a>
+          <a class="app-pill" href="https://apps.apple.com/us/app/following/id6444108549?platform=iphone" target="_blank" rel="noopener"><span class="dot"></span>Following</a>
+        </div>
+      </div></div>
+    </details>
+
+    <!-- Roni -->
+    <details class="candidate">
+      <summary class="cand-summary">
+        <div class="cand-left"><div class="avatar">RO</div>
+          <div><div class="cand-title">Roni</div><div class="cand-tagline">3 years · Product-focused iOS Developer</div></div>
+        </div><div class="chevron">+</div>
+      </summary>
+      <div class="cand-body"><div class="cand-body-inner">
+        <div class="cand-section-label">Capability Summary</div>
+        <p>Product-focused iOS developer experienced in translating designs into pixel-perfect interfaces, implementing robust networking with REST APIs and Swift async/await, and improving reliability through unit and UI testing — a collaborative problem solver working closely with designers and backend teams.</p>
+
+        <div class="cand-section-label">Experience Timeline</div>
+        <ul class="timeline">
+          <li><div class="tl-role">Software Developer, Quintet Solution Pvt. Ltd.</div><div class="tl-meta">Nov 2023 – Present · Kochi, India</div></li>
+          <li><div class="tl-role">Intern, Brototype</div><div class="tl-meta">Dec 2022 – Sep 2023 · Kochi, India</div></li>
+        </ul>
+
+        <div class="cand-section-label">Technical Stack</div>
+        <div class="stack-chips">
+          <span class="chip">Swift</span><span class="chip">C</span><span class="chip">C++</span><span class="chip">SwiftUI</span><span class="chip">UIKit</span><span class="chip">Combine</span>
+          <span class="chip">Firebase</span><span class="chip">Async/Await</span><span class="chip">TUS Protocol</span><span class="chip">Unit / UI Testing</span>
+          <span class="chip">Xcode</span><span class="chip">Git</span><span class="chip">Figma</span><span class="chip">App Store Connect</span><span class="chip">HTML/CSS</span>
+        </div>
+
+        <div class="cand-section-label">Full Project Portfolio</div>
+        <ul class="project-list">
+          <li class="project-item"><b>Foresight Pros — Technician App (SwiftUI)</b><p>Converted Figma designs into production-ready iOS interfaces with pixel-perfect implementation. Integrated the TUS Protocol for reliable background uploads of large media files, developed reusable custom UI components following Apple's design guidelines, identified and resolved UI issues through extensive testing, designed a scalable navigation architecture, and modernized the networking layer using Swift's async/await concurrency.</p></li>
+          <li class="project-item"><b>Lula Pros — Property Maintenance App (UIKit)</b><p>Collaborated with backend teams to design RESTful APIs and maintain API documentation, implemented efficient data parsing and serialization for API responses, led development of user interfaces based on design specifications, migrated the networking layer to Swift's async/await concurrency model, and resolved production issues on the live application.</p></li>
+          <li class="project-item"><b>Afton Tickets — Ticket Booking App (SwiftUI)</b><p>Developed interactive and animated user interfaces using SwiftUI animations, collaborating with UX/UI designers to convert wireframes into polished application interfaces.</p></li>
+        </ul>
+
+        <div class="cand-section-label">Apps</div>
+        <div class="app-links">
+          <a class="app-pill" href="https://apps.apple.com/us/app/foresight-pros/id6476646210" target="_blank" rel="noopener"><span class="dot"></span>Foresight Pros</a>
+          <a class="app-pill" href="https://apps.apple.com/us/app/lula-pros/id1207212221" target="_blank" rel="noopener"><span class="dot"></span>Lula Pros</a>
+          <a class="app-pill" href="https://apps.apple.com/us/app/afton-tickets/id6479971310" target="_blank" rel="noopener"><span class="dot"></span>Afton Tickets</a>
+        </div>
+      </div></div>
+    </details>
+
+  </div>
+
+  <!-- ================= BACKEND ROLE ================= -->
+  <div class="role-section">
+    <div class="role-head">
+      <h2>Senior Backend Developer</h2>
+      <span>Python · REST/GraphQL · PostgreSQL · Docker/Kubernetes · AWS</span>
+    </div>
+
+    <div class="summary-card">
+      <table class="summary">
+        <thead><tr><th style="width:14%">Name</th><th style="width:44%">Capability Summary</th><th>Notable Work</th></tr></thead>
+        <tbody>
+          <tr><td class="name-cell">Richard<div class="yrs-badge">Full-stack + AI</div></td><td>Applied AI and full-stack engineer — Python, FastAPI, Node.js, real-time systems, end-to-end production deployments.</td><td>Carestack, Toolchat.io</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <details class="candidate">
+      <summary class="cand-summary">
+        <div class="cand-left"><div class="avatar">RI</div>
+          <div><div class="cand-title">Richard</div><div class="cand-tagline">Software / AI Developer</div></div>
+        </div><div class="chevron">+</div>
+      </summary>
+      <div class="cand-body"><div class="cand-body-inner">
+        <div class="cand-section-label">Capability Summary</div>
+        <p>Software and AI engineer with a track record of shipping production systems across full-stack, backend, and applied AI — comfortable owning a project end-to-end, from architecture to real-world deployment.</p>
+
+        <div class="cand-section-label">Experience Timeline</div>
+        <ul class="timeline">
+          <li><div class="tl-role">AI Engineer, Carestack</div><div class="tl-meta">Trivandrum, Kerala, India · Remote</div></li>
+          <li><div class="tl-role">Founder / Builder, Toolchat.io</div><div class="tl-meta">Remote</div></li>
+          <li><div class="tl-role">Technical Officer, Legacy IEDC UCEK</div><div class="tl-meta">Trivandrum, Kerala, India</div></li>
+          <li><div class="tl-role">Backend Intern, Riglabs</div><div class="tl-meta">Trivandrum, Kerala, India</div></li>
+        </ul>
+
+        <div class="cand-section-label">Technical Stack</div>
+        <div class="stack-chips">
+          <span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">Flask</span><span class="chip">Node.js</span><span class="chip">Ruby on Rails</span>
+          <span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">WordPress</span>
+          <span class="chip">C/C++</span><span class="chip">Java</span><span class="chip">Ruby</span><span class="chip">Dart</span>
+          <span class="chip">AWS</span><span class="chip">Google Cloud Platform</span><span class="chip">Nginx</span><span class="chip">Git</span>
+          <span class="chip">Machine Learning</span><span class="chip">Generative AI</span><span class="chip">Bot Development</span><span class="chip">Real-time Audio/Voice Streaming</span>
+        </div>
+
+        <div class="cand-section-label">Full Project Portfolio</div>
+        <ul class="project-list">
+          <li class="project-item"><b>Carestack — AI Insurance Verification</b><p>Built a system combining clearinghouse APIs with an AI layer for insurance verification, designing verification workflows handling different therapy visit types (first visits and follow-ups). Enabled real-time conversational verification with structured data pushed into EMRs/CRMs, working directly with early design-partner customers to test and refine accuracy.</p></li>
+          <li class="project-item"><b>Toolchat.io (Founder)</b><p>Led product development and design for an AI-powered file assistant that compresses, converts, merges, and edits files through a chat interface, built with a clean, intuitive UI enabling non-technical users to manipulate files instantly.</p></li>
+          <li class="project-item"><b>Legacy IEDC UCEK — Technical Officer</b><p>Managed all technical operations within the organization. Self-built the organization's website (Next.js) end-to-end, and developed a Generative AI PWA to automatically generate "Legacy Times," a weekly article series.</p></li>
+          <li class="project-item"><b>Riglabs — Elderwand Project</b><p>Completed the authentication module for the backend (Node.js) and fixed crucial bugs on the organization's official website (JavaScript).</p></li>
+          <li class="project-item"><b>New Golden Aqua Zone</b><p>Developed complete digital infrastructure including a landing page and full-scale business management system — an end-to-end inventory and stock management system with custom billing and admin dashboard, plus a WhatsApp marketing automation bot for customer engagement.</p></li>
+          <li class="project-item"><b>Events At UCEK</b><p>Full-stack web app (TypeScript, Next.js, Firebase, Vercel) with Google OAuth, PWA support, event listing/registration, admin dashboard, and QR-code check-in/attendance.</p></li>
+          <li class="project-item"><b>Maxcart (Shopping Cart)</b><p>Full shopping cart (Express.js, Handlebars, MongoDB, Razorpay) with user login, checkout, payment integration, and an admin dashboard for product and order management.</p></li>
+        </ul>
+
+        <div class="cand-section-label">Apps</div>
+        <p class="no-links">Not app-based work.</p>
+      </div></div>
+    </details>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <img class="logo" src="https://poornam.com/wp-content/uploads/2025/05/Bobcares-Logo.png" alt="Bobcares">
+    <div class="fine">Managed IT & Digital Engineering — Est. 1999 — Kochi, India</div>
+  </div>
+</footer>
+
+</body>
+</html>
